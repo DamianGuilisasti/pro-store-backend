@@ -1,6 +1,7 @@
-import mongoose, { Schema, mongo } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
 const productSchema = new Schema({
+    category: { type: Schema.Types.ObjectId, ref: 'category', required: true },
     code: {
         type: Number,
         maxlength: 50,
@@ -16,9 +17,6 @@ const productSchema = new Schema({
     description: {
         type: String,
         maxlength: 255,
-    },
-    category: {
-        type: Schema.Types.ObjectId, ref: 'Categorias'
     },
     stock: {
         type: Number,

@@ -26,7 +26,7 @@ app.use('/api', router);
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Settings
-app.set('port', process.env.PORT || 2000);
+app.set('port', process.env.PORT || 4000);
 
 // Start the Server
 app.listen(app.get('port'), () =>{

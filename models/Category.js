@@ -18,10 +18,10 @@ const categorySchema = new Schema({
 },
     {
         timestamps: true,
-        collection: 'Categorias'
+        collation: 'category'
     }
 );
 
-const Category = mongoose.model('Categorias', categorySchema);
+const category = mongoose.model('category', categorySchema);
 
-export default Category;
+export default category;

@@ -1,19 +1,11 @@
 import models from '../models';
+import bcrypt from 'bcryptjs';
 
 export default {
     add: async (req, res, next) =>{
          try{
-/*             const categoryObject = await models.Category.findById({_id: req.body.category});
-            const ProductBody = {
-                code: req.body.code,
-                name: req.body.name,
-                category: categoryObject,
-                price: req.body.price,
-                saleprice: req.body.saleprice,
-                stock: req.body.stock,
-                state: req.body.state
-            } */
-            const reg = await models.Product.create(req.body);
+            req.body.password = await bcrypt.hash(req.body.password, 10);
+            const reg = await models.User.create(req.body);
             res.status(200).json(reg);
          }
          catch (e){
@@ -25,8 +17,7 @@ export default {
     },
     query: async (req, res, next) =>{
         try{
-            const reg = await models.Product.findOne({_id:req.query._id})
-            .populate('category', {name: 1});
+            const reg = await models.User.findOne({_id:req.query._id});
             if (!reg){
                 res.status(404).send({
                     message: 'El registro no existe'
@@ -47,8 +38,16 @@ export default {
     list: async (req, res, next) => {
         try{
             let value = req.query.value;
-            const reg = await models.Product.find()
-            .populate('category', {name: 1});
+            const reg = await models.User.find(
+                {
+                    $or:
+                        [
+                            {'name': new RegExp(value, 'i')},
+                            {'email': new RegExp(value, 'i')}
+                        ]
+                }
+                )
+            .sort({'createdAt': -1});
             res.status(200).json(reg);
          }
          catch (e){
@@ -60,16 +59,15 @@ export default {
     },
     update: async (req, res, next) =>{
         try{
-            const reg = await models.Product.findByIdAndUpdate(
+            
+            const reg = await models.User.findByIdAndUpdate(
                 {_id:req.body._id},
                 {
-                    code: req.body.code, 
+                    userrole: req.body.userrole, 
+                    username: req.body.username,
                     name: req.body.name,
-                    description: req.body.description,
-                    category: req.body.category,
-                    stock: req.body.stock,
-                    price: req.body.price,
-                    saleprice: req.body.saleprice
+                    email: req.body.email,
+                    password: req.body.password
                 }
                 );
             res.status(200).json(reg);
@@ -83,7 +81,7 @@ export default {
     },
     remove: async (req, res, next) =>{
         try{
-            const reg = await models.Product.findByIdAndDelete(
+            const reg = await models.User.findByIdAndDelete(
                 {_id:req.body._id}
                 );
             res.status(200).json(reg);
@@ -97,7 +95,7 @@ export default {
     },
     activate: async (req, res, next) =>{
         try{
-            const reg = await models.Product.findByIdAndUpdate(
+            const reg = await models.User.findByIdAndUpdate(
                 {_id:req.body._id},{state: 1}
                 );
             res.status(200).json(reg);
@@ -111,7 +109,7 @@ export default {
     },
     desactivate: async (req, res, next) =>{
         try{
-            const reg = await models.Product.findByIdAndUpdate(
+            const reg = await models.User.findByIdAndUpdate(
                 {_id:req.body._id},{state: 0}
                 );
             res.status(200).json(reg);
