@@ -59,7 +59,7 @@ export default {
         try{
             const reg = await models.Category.findByIdAndUpdate(
                 {_id:req.body._id},
-                {name: req.body.name, description: req.body.description}
+                {name: req.body.name}
                 );
             res.status(200).json(reg);
          }
