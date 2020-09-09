@@ -1,0 +1,1 @@
+//aca poner las funciones que se repiten para los controladres como por ejemplo: aumentar y disminuir stock. tengo que exportarlas y llamarlas desde el otro archivo.

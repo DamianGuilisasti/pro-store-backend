@@ -1,18 +1,18 @@
 import mongoose, { Schema } from 'mongoose';
 
 const productSchema = new Schema({
-    category: { type: Schema.Types.ObjectId, ref: 'category', required: true },
+    category: { type: Schema.Types.ObjectId, ref: 'category' },
     code: {
         type: Number,
         maxlength: 50,
         unique: true,
-        required: true
+
     },
     name: {
         type: String,
         maxlength: 50,
         unique: true,
-        required: true
+
     },
     description: {
         type: String,
@@ -20,14 +20,17 @@ const productSchema = new Schema({
     },
     stock: {
         type: Number,
-        required: true
+
     },
     price: {
         type: Number,
-        required: true
+
     },
     saleprice: {
         type: Number
+    },
+    image: {
+        data: Buffer, contentType: String 
     },
     state: {
         type: Number,

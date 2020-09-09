@@ -1,33 +1,9 @@
 import models from '../models';
-import fs from 'fs';
-import path from 'path';
 
 export default {
     add: async (req, res, next) => {
         try {
-
-
-            const product = {
-                code: req.body.code,
-                name: req.body.name,
-                description: req.body.description,
-                category: req.body.category,
-                stock: req.body.stock,
-                price: req.body.price,
-                image: {
-                    data: fs.readFileSync(path.join(__dirname + '../../public/img/uploads/' + req.file.filename)),
-                    contentType: 'image/png'
-                }
-            }
-
-
-
-            /*             const image = req.file;
-                        req.body.image = image;
-                        console.log(req); */
-            const reg = await models.Product.create(product);
-            console.log("req.file: ");
-            console.log(req.file);
+            const reg = await models.Ingresos.create(req.body);
             res.status(200).json(reg);
         }
         catch (e) {
@@ -39,8 +15,10 @@ export default {
     },
     query: async (req, res, next) => {
         try {
-            const reg = await models.Product.findOne({ _id: req.query._id })
-                .populate('category', { name: 1 });
+            const reg = await models.Ingresos.findOne({ _id: req.query._id })
+                .populate('Usuarios', { name: 1 })
+                .populate('Personas', { name: 1 });
+
             if (!reg) {
                 res.status(404).send({
                     message: 'El registro no existe'
@@ -61,8 +39,18 @@ export default {
     list: async (req, res, next) => {
         try {
             let value = req.query.value;
-            const reg = await models.Product.find()
-                .populate('category', { name: 1 });
+            const reg = await models.Ingresos.find(
+                {
+                    $or:
+                        [
+                            { 'num_comprobante': new RegExp(value, 'i') },
+                            { 'serie_comprobante': new RegExp(value, 'i') }
+                        ]
+                }
+            )
+                .populate('Usuarios', { name: 1 })
+                .populate('Personas', { name: 1 })
+                .sort({ 'createdAt': -1 });
             res.status(200).json(reg);
         }
         catch (e) {
@@ -72,18 +60,11 @@ export default {
             next(e);
         }
     },
-    update: async (req, res, next) => {
+/*     update: async (req, res, next) => {
         try {
-            const reg = await models.Product.findByIdAndUpdate(
+            const reg = await models.Ingresos.findByIdAndUpdate(
                 { _id: req.body._id },
-                {
-                    code: req.body.code,
-                    name: req.body.name,
-                    description: req.body.description,
-                    category: req.body.category,
-                    stock: req.body.stock,
-                    price: req.body.price,
-                }
+                { name: req.body.name }
             );
             res.status(200).json(reg);
         }
@@ -96,7 +77,7 @@ export default {
     },
     remove: async (req, res, next) => {
         try {
-            const reg = await models.Product.findByIdAndDelete(
+            const reg = await models.Category.findByIdAndDelete(
                 { _id: req.body._id }
             );
             res.status(200).json(reg);
@@ -107,10 +88,10 @@ export default {
             });
             next(e);
         }
-    },
+    } */
     activate: async (req, res, next) => {
         try {
-            const reg = await models.Product.findByIdAndUpdate(
+            const reg = await models.Ingresos.findByIdAndUpdate(
                 { _id: req.body._id }, { state: 1 }
             );
             res.status(200).json(reg);
@@ -124,7 +105,7 @@ export default {
     },
     desactivate: async (req, res, next) => {
         try {
-            const reg = await models.Product.findByIdAndUpdate(
+            const reg = await models.Ingresos.findByIdAndUpdate(
                 { _id: req.body._id }, { state: 0 }
             );
             res.status(200).json(reg);
