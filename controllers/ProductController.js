@@ -1,10 +1,24 @@
 import models from '../models';
+import dotenv from 'dotenv';
 import fs from 'fs';
 import path from 'path';
+import cloudinary from 'cloudinary';
+
+dotenv.config();
+
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 export default {
     add: async (req, res, next) => {
         try {
+
+            const result = await cloudinary.uploader.upload(req.file.path);
+
+            console.log(result);
 
 
             const product = {
@@ -14,20 +28,19 @@ export default {
                 category: req.body.category,
                 stock: req.body.stock,
                 price: req.body.price,
-                image: {
+                primaryimage: 
+                    {
+                        public_id: result.public_id,
+                        imageURL: result.url
+                    }
+                
+/*                 image: {
                     data: fs.readFileSync(path.join(__dirname + '../../public/img/uploads/' + req.file.filename)),
                     contentType: 'image/png'
-                }
+                } */
             }
 
-
-
-            /*             const image = req.file;
-                        req.body.image = image;
-                        console.log(req); */
             const reg = await models.Product.create(product);
-            console.log("req.file: ");
-            console.log(req.file);
             res.status(200).json(reg);
         }
         catch (e) {

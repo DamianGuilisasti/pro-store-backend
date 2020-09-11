@@ -1,16 +1,11 @@
 import express from 'express';
 import ProductController from '../controllers/ProductController';
 import auth from '../middlewares/auth';
-import path from 'path';
-import multer from 'multer';
-
+import upload from '../middlewares/upload';
 const router = express.Router();
 
-const upload = multer({
-    dest: path.join(__dirname, '../public/img/uploads')
-});
 
-router.post('/add', upload.single('file'), ProductController.add);
+router.post('/add', upload, ProductController.add);
 router.get('/query', ProductController.query);
 router.get('/list', ProductController.list);
 router.put('/update', ProductController.update);

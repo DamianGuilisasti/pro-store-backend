@@ -29,8 +29,13 @@ const productSchema = new Schema({
     saleprice: {
         type: Number
     },
-    image: {
-        data: Buffer, contentType: String 
+    primaryimage: {
+        public_id: {
+            type: String
+        },
+        imageURL: {
+            type: String
+        }
     },
     state: {
         type: Number,

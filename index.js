@@ -5,6 +5,7 @@ import router from './routes';
 import morgan from 'morgan';
 import cors from 'cors';
 import path from 'path';
+import multer from 'multer';
 require('dotenv').config();
 
 // DB Connection
@@ -17,7 +18,7 @@ const app = express();
 
 // Settings
 
-app.set('port', process.env.PORT || 4000);
+app.set('port', process.env.PORT || 3005);
 
 //Middlewares
 
