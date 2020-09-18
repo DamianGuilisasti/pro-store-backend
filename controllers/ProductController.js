@@ -1,6 +1,6 @@
 import models from '../models';
 import dotenv from 'dotenv';
-import fs from 'fs';
+import fs from 'fs-extra';
 import path from 'path';
 import cloudinary from 'cloudinary';
 
@@ -41,6 +41,9 @@ export default {
             }
 
             const reg = await models.Product.create(product);
+
+            await fs.unlink(req.file.path);
+
             res.status(200).json(reg);
         }
         catch (e) {
@@ -53,7 +56,7 @@ export default {
     query: async (req, res, next) => {
         try {
             const reg = await models.Product.findOne({ _id: req.query._id })
-                .populate('category', { name: 1 });
+                //.populate('category', { name: 1 });
             if (!reg) {
                 res.status(404).send({
                     message: 'El registro no existe'
