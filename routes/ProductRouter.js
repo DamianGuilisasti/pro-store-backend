@@ -5,7 +5,7 @@ import upload from '../middlewares/upload';
 const router = express.Router();
 
 
-router.post('/add', upload, ProductController.add);
+router.post('/add', auth.sellerVerify, upload, ProductController.add);
 router.get('/query', ProductController.query);
 router.get('/list', ProductController.list);
 router.put('/update', ProductController.update);

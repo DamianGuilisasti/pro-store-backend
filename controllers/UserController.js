@@ -136,7 +136,7 @@ export default {
                 if (match) {
                     //darle el token al cliente.
                     //llamaria a la función encode y le pasaría el ID.
-                    let tokenReturn = await token.encode(user._id);
+                    let tokenReturn = await token.encode(user._id, user.userrole, user.email);
                     res.status(200).json({user, tokenReturn});
                 }
                 else{

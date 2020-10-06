@@ -5,8 +5,8 @@ import auth from '../middlewares/auth';
 const router = express.Router();
 
 router.post('/add', auth.adminVerify, UserController.add);
-router.get('/query', auth.adminVerify, UserController.query);
-router.get('/list', auth.adminVerify, UserController.list);
+router.get('/query', UserController.query);
+router.get('/list',  UserController.list);
 router.put('/update', auth.adminVerify, UserController.update);
 router.delete('/remove', auth.adminVerify, UserController.remove);
 router.put('/activate', auth.adminVerify, UserController.activate);

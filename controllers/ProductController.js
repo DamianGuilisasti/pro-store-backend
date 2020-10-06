@@ -18,9 +18,6 @@ export default {
 
             const result = await cloudinary.uploader.upload(req.file.path);
 
-            console.log(result);
-
-
             const product = {
                 code: req.body.code,
                 name: req.body.name,
@@ -28,16 +25,12 @@ export default {
                 category: req.body.category,
                 stock: req.body.stock,
                 price: req.body.price,
-                primaryimage: 
+                 primaryimage: 
                     {
                         public_id: result.public_id,
                         imageURL: result.url
-                    }
+                    } 
                 
-/*                 image: {
-                    data: fs.readFileSync(path.join(__dirname + '../../public/img/uploads/' + req.file.filename)),
-                    contentType: 'image/png'
-                } */
             }
 
             const reg = await models.Product.create(product);

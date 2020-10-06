@@ -73,7 +73,7 @@ export default {
     remove: async (req, res, next) => {
         try {
             const reg = await models.Category.findByIdAndDelete(
-                { _id: req.body._id }
+                { _id: req.query.id }
             );
             res.status(200).json(reg);
         }

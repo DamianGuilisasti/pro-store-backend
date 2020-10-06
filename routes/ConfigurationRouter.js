@@ -5,7 +5,10 @@ const router = express.Router();
 
 router.post('/add', ConfigurationController.add);
 router.get('/list', ConfigurationController.list);
-router.put('/update', ConfigurationController.update);
+router.put('/updateInfo', ConfigurationController.updateInfo);
+router.put('/updateSocialMedia', ConfigurationController.updateSocialMedia);
+
+
 /* router.get('/query', ConfigurationController.query);
 
 

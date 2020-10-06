@@ -21,8 +21,8 @@ async function checkToken(token) {
 }
 
 export default {
-    encode: async (_id) => { //esta función me va a generar el token con el ID del usuario que está correctamente autentificado.
-        const token = jwt.sign({ _id: _id }, 'clavesecreta', { expiresIn: '1d' });
+    encode: async (_id, userrole, email) => { //esta función me va a generar el token con el ID del usuario que está correctamente autentificado.
+        const token = jwt.sign({ _id: _id, userrole: userrole, email: email }, 'clavesecreta', { expiresIn: '1d' });
         return token;
     },
     decode: async (token) => { //esta función me va a permitir decodificar el token para ver si es correcto

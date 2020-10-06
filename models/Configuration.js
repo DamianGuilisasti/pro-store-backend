@@ -56,6 +56,10 @@ const ConfigurationSchema = new Schema({
     },
     contactInfo: {
         type: String
+    },
+    companyName: {
+        type: String,
+        maxlength: 64
     }
 },
     {
