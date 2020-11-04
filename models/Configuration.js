@@ -60,11 +60,14 @@ const ConfigurationSchema = new Schema({
     companyName: {
         type: String,
         maxlength: 64
+    },
+    catalogMode: {
+        type: Boolean
     }
 },
     {
         timestamps: true,
-        collation: 'Configuration'
+        collection: 'Configuration'
     });
 
 const Configuration = mongoose.model('Configuration', ConfigurationSchema)

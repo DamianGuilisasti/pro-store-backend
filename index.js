@@ -5,7 +5,6 @@ import router from './routes';
 import morgan from 'morgan';
 import cors from 'cors';
 import path from 'path';
-import multer from 'multer';
 require('dotenv').config();
 
 // DB Connection
@@ -31,7 +30,7 @@ app.use(express.urlencoded({extended: true}));
 
 app.use('/api', router);
 
-// Statis Files
+// Static Files
 
 app.use(express.static(path.join(__dirname, 'public')));
 

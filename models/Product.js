@@ -6,13 +6,11 @@ const productSchema = new Schema({
         type: Number,
         maxlength: 50,
         unique: true,
-
     },
     name: {
         type: String,
         maxlength: 50,
         unique: true,
-
     },
     description: {
         type: String,
@@ -20,11 +18,9 @@ const productSchema = new Schema({
     },
     stock: {
         type: Number,
-
     },
     price: {
         type: Number,
-
     },
     saleprice: {
         type: Number

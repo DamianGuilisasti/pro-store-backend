@@ -70,6 +70,7 @@ export default {
                 {
                     userrole: req.body.userrole,
                     username: req.body.username,
+                    lastname: req.body.lastname,
                     name: req.body.name,
                     email: req.body.email,
                     password: req.body.password
@@ -87,7 +88,7 @@ export default {
     remove: async (req, res, next) => {
         try {
             const reg = await models.User.findByIdAndDelete(
-                { _id: req.body._id }
+                { _id: req.query.id }
             );
             res.status(200).json(reg);
         }

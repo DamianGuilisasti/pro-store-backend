@@ -7,6 +7,7 @@ router.post('/add', ConfigurationController.add);
 router.get('/list', ConfigurationController.list);
 router.put('/updateInfo', ConfigurationController.updateInfo);
 router.put('/updateSocialMedia', ConfigurationController.updateSocialMedia);
+router.put('/updateCatalogMode', ConfigurationController.updateCatalogMode)
 
 
 /* router.get('/query', ConfigurationController.query);

@@ -18,7 +18,7 @@ const categorySchema = new Schema({
 },
     {
         timestamps: true,
-        collation: 'category'
+        collection: 'category'
     }
 );
 
