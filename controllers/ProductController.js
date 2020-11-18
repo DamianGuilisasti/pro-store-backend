@@ -1,10 +1,9 @@
 import models from '../models';
 import dotenv from 'dotenv';
 import fs from 'fs-extra';
-import path from 'path';
 import cloudinary from 'cloudinary';
 
-dotenv.config();
+dotenv.config(); //revisar si es necesario que esté acá.
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_NAME,
@@ -15,6 +14,8 @@ cloudinary.config({
 export default {
     add: async (req, res, next) => {
         try {
+
+            console.log(req.file.path);
 
             const result = await cloudinary.uploader.upload(req.file.path);
 
