@@ -1,9 +1,9 @@
 import mongoose, { Schema } from 'mongoose';
 
 const productSchema = new Schema({
-    category: { type: Schema.Types.ObjectId, ref: 'category' },
+    category: { type: Schema.Types.ObjectId, ref: 'category' }, //poner un array porque un producto puede tener más de una categoría.
     code: {
-        type: Number,
+        type: String,
         maxlength: 50,
         unique: true,
     },
